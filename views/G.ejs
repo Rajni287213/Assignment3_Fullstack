@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>G License Page</title>
+    <style>
+       .form-container{
+        margin-left: 30em;
+       }
+    </style>
+</head>
+<body>
+    
+    <%- include('layouts/navbar'); -%>
+
+    <div class="G2">
+        <h2>G Test Booking</h2>
+    </div>
+    <main>
+        <div class="container">
+            <% if (typeof user !=='undefined' && user) { %>
+                <% if (user.firstName==='default' || user.lastName==='default' ) { %>
+                    <div class="user-container" role="alert">
+                        No user data available.
+                    </div>
+                    <% } else { %>
+                        <div class="user-container">
+                        <div id="userInfo">
+                            <h2>User Information</h2>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" value="<%= user.firstName %>" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" value="<%= user.lastName %>" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>License Number</label>
+                                <input type="text" value="<%= user.licenseNumber %>" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" value="<%= user.age %>" class="form-control" readonly>
+                            </div>
+                        </div></div>
+                            <div class="update-container">
+                        <form id="updateForm" action="/updateUser" method="post">
+                            <input type="hidden" name="licenseNumber" value="<%= user.licenseNumber %>">
+                            <h2>Car Information</h2>
+                            <div class="form-group">
+                                <label for="make">Make</label>
+                                <input type="text" id="make" name="make" value="<%= user.carDetails.make %>"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="model">Model</label>
+                                <input type="text" id="model" name="model" value="<%= user.carDetails.model %>"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="year">Year</label>
+                                <input type="number" id="year" name="year" value="<%= user.carDetails.year %>"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="plateNumber">Plate Number</label>
+                                <input type="text" id="plateNumber" name="plateNumber"
+                                    value="<%= user.carDetails.plateNumber %>" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Car Information</button>
+                        </form>
+                    </div>
+                        <% } %>
+                            <% } else { %>
+                                <div class="alert alert-danger" role="alert">
+                                    No user data available.
+                                </div>
+                                <% } %>
+        </div>
+    </main>
+    <%- include('layouts/footer'); -%>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
